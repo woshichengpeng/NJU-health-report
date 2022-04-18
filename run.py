@@ -13,11 +13,21 @@ URL_JKDK_APPLY = 'http://ehallapp.nju.edu.cn/xgfw/sys/yqfxmrjkdkappnju/apply/sav
 
 auth = NjuUiaAuth()
 
-def get_zjhs_time(method='YESTERDAY'):
+def get_zjhs_time(method='FIVE'):
     today = datetime.datetime.now(timezone('Asia/Shanghai'))
     yesterday = today + datetime.timedelta(-1)
     if method == 'YESTERDAY':
         return yesterday.strftime("%Y-%m-%d %-H")
+    # create 2020-04-15 date with Asia/Shanghai timezone
+    date = datetime.datetime(2020, 4, 15, tzinfo=datetime.timezone(datetime.timedelta(hours=8)))
+    # create now date with Asia/Shanghai timezone
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+    # add 5 day to date when date + 5 <= now
+    while date + datetime.timedelta(days=5) <= now:
+        date += datetime.timedelta(days=5)
+    if method == 'FIVE':
+        return date.strftime("%Y-%m-%d") + " 11"
+
 
 
 if __name__ == "__main__":
