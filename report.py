@@ -13,7 +13,8 @@ URL_JDKD_INDEX = 'http://ehallapp.nju.edu.cn/xgfw/sys/mrjkdkappnju/index.html'
 def get_zjhs_time(method='YESTERDAY'):
     """获取最近核酸时间"""
     today = datetime.datetime.now(timezone('Asia/Shanghai'))
-    yesterday = today + datetime.timedelta(-1)
+    oldday = datetime.datetime.strptime("2022-04-09", "%Y-%m-%d") # 根据上一次自己做常态化核酸的时间而定
+    yesterday = today + datetime.timedelta(days=-((today-oldday).days % 5))
     if method == 'YESTERDAY':
         return yesterday.strftime("%Y-%m-%d %-H")
 
