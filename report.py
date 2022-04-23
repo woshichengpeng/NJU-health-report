@@ -14,7 +14,7 @@ def get_zjhs_time(method='YESTERDAY'):
     """获取最近核酸时间"""
     today = datetime.datetime.now(timezone('Asia/Shanghai'))
     oldday = datetime.datetime.strptime("2022-04-15", "%Y-%m-%d") # 根据上一次自己做常态化核酸的时间而定
-    yesterday = today + datetime.timedelta(days=-((today-oldday).days % 5))
+    yesterday = today + datetime.timedelta(days=-((today.replace(tzinfo=None)-oldday).days % 5))
     if method == 'YESTERDAY':
         return yesterday.strftime("%Y-%m-%d") + " 11"
 
